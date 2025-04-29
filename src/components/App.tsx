@@ -1,5 +1,7 @@
+import JobItemContent from "./JobItemContent.tsx";
+
 function App() {
-  return <>Hello!</>;
+  return <><JobItemContent/></>;
 }
 
 export default App;
