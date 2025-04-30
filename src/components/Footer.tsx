@@ -1,10 +1,10 @@
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="footer">
       <small>
         <p>
           © Copyright by{" "}
-          <a href="https://bytegrad.com" target="_blank">
+          <a href="https://bytegrad.com" target="_blank" rel="noreferrer">
             ByteGrad.com
           </a>
           . Intended for learning or your portfolio.

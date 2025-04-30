@@ -1,4 +1,4 @@
-export default function SearchForm() {
+export function SearchForm() {
   return (
     <form action="#" className="search">
       <button type="submit">
