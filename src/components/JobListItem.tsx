@@ -1,6 +1,6 @@
-import BookmarkIcon from "./BookmarkIcon";
+import {BookmarkIcon} from "./BookmarkIcon";
 
-export default function JobListItem() {
+export function JobListItem() {
   return (
     <li className="job-item">
       <a className="job-item__link">

@@ -1,4 +1,4 @@
-export default function Background() {
+export function Background() {
   return (
     <div className="background">
       <img

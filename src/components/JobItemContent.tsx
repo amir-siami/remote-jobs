@@ -1,6 +1,10 @@
-import BookmarkIcon from "./BookmarkIcon";
+import {BookmarkIcon} from "./BookmarkIcon";
 
-export default function JobItemContent() {
+const noContentYet = true;
+export function JobItemContent() {
+
+  if (noContentYet) return <EmptyJobContent/>
+
   return (
     <section className="job-details">
       <div>
@@ -12,7 +16,7 @@ export default function JobItemContent() {
         <a
           className="apply-btn"
           href="https://fictional9thtechwebsite.com/"
-          target="_blank"
+          target="_blank" rel="noreferrer"
         >
           Apply
         </a>
@@ -92,17 +96,17 @@ export default function JobItemContent() {
   );
 }
 
-// function EmptyJobContent() {
-//   return (
-//     <section className="job-details">
-//       <div>
-//         <div className="job-details__start-view">
-//           <p>What are you looking for?</p>
-//           <p>
-//             Start by searching for any technology your ideal job is working with
-//           </p>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
+function EmptyJobContent() {
+  return (
+    <section className="job-details">
+      <div>
+        <div className="job-details__start-view">
+          <p>What are you looking for?</p>
+          <p>
+            Start by searching for any technology your ideal job is working with
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}

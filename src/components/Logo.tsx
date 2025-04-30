@@ -1,4 +1,4 @@
-export default function Logo() {
+export function Logo() {
   return (
     <a href="." className="logo">
       <img

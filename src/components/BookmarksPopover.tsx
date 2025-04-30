@@ -1,3 +1,3 @@
-export default function BookmarksPopover() {
+export function BookmarksPopover() {
   return <div className="bookmarks-popover"></div>;
 }

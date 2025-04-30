@@ -78,10 +78,8 @@ body::-webkit-scrollbar {
 
 /* HEADINGS */
 .first-heading {
-  font-size: 31px;
   font-weight: 400;
   color: #fff;
-
   font-size: 27px;
   display: none;
 }
@@ -143,9 +141,7 @@ body::-webkit-scrollbar {
 
 /* HEADER */
 .header {
-  margin-bottom: 13px;
   position: relative;
-
   margin-bottom: 0;
 }
 
@@ -155,7 +151,6 @@ body::-webkit-scrollbar {
   max-width: 1000px;
   padding: 0 12px;
   margin: 0 auto;
-  padding-top: 12px;
   position: relative;
   justify-content: center;
   padding-top: 40px;

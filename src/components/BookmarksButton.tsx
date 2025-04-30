@@ -1,6 +1,6 @@
-import { TriangleDownIcon } from "@radix-ui/react-icons";
+import {TriangleDownIcon} from "@radix-ui/react-icons";
 
-export default function BookmarksButton() {
+export function BookmarksButton() {
   return (
     <section>
       <button className="bookmarks-btn">

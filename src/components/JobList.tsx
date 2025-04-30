@@ -1,5 +1,7 @@
-export function JobList() {
-  return <ul className="job-list"></ul>;
-}
+import {JobListItem} from "./JobListItem.tsx";
 
-export default JobList;
+export function JobList() {
+  return <ul className="job-list">
+    <JobListItem/>
+  </ul>;
+}
