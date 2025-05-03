@@ -1,0 +1,29 @@
+export type JobItem = {
+  id: number;
+  title: string;
+  company: string;
+  badgeLetters: string;
+  relevanceScore: number;
+  daysAgo: number;
+};
+
+export type JobListProps = {
+  jobs: JobItem[];
+  isLoading: boolean;
+};
+
+export type JobItemDetails = JobItem & {
+  description: string;
+  qualifications: string[];
+  reviews: string[];
+  duration: string;
+  salary: string;
+  location: string;
+  coverImgURL: string;
+  companyURL: string;
+};
+
+export type JobItemContentProps = {
+  isLoading?: boolean;
+  jobItemDetails: JobItemDetails | null;
+};
