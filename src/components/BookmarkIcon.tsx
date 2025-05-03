@@ -1,4 +1,4 @@
-import {BookmarkFilledIcon} from "@radix-ui/react-icons";
+import { BookmarkFilledIcon } from '@radix-ui/react-icons';
 
 export function BookmarkIcon() {
   return (

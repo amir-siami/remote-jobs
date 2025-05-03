@@ -1,4 +1,4 @@
-import {TriangleDownIcon} from "@radix-ui/react-icons";
+import { TriangleDownIcon } from '@radix-ui/react-icons';
 
 export function BookmarksButton() {
   return (

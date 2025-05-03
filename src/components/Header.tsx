@@ -1,15 +1,15 @@
-import {Logo} from "./Logo.tsx";
-import {BookmarksButton} from "./BookmarksButton.tsx";
-import {SearchForm} from "./SearchForm.tsx";
+import { Logo } from './Logo.tsx';
+import { BookmarksButton } from './BookmarksButton.tsx';
+import { SearchForm, SearchFormProps } from './SearchForm.tsx';
 
-export function Header() {
+export function Header({ setSearchTerm, searchTerm }: SearchFormProps) {
   return (
     <header className="header">
       <div className="header__top">
-          <Logo/>
-          <BookmarksButton/>
+        <Logo />
+        <BookmarksButton />
       </div>
-        <SearchForm/>
+      <SearchForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
     </header>
   );
 }

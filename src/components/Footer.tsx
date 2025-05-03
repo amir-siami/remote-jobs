@@ -3,7 +3,7 @@ export function Footer() {
     <footer className="footer">
       <small>
         <p>
-          © Copyright by{" "}
+          © Copyright by{' '}
           <a href="https://bytegrad.com" target="_blank" rel="noreferrer">
             ByteGrad.com
           </a>
