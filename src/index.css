@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* RESET */
 *,
@@ -65,7 +65,7 @@ body {
   background-color: #dee3e9;
   color: rgb(22, 24, 28);
   min-height: 100vh;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   position: relative;
 
   scrollbar-width: none; /* Firefox */
@@ -116,7 +116,7 @@ body::-webkit-scrollbar {
 }
 
 .background::before {
-  content: "";
+  content: '';
   background-image: linear-gradient(
     -180deg,
     rgba(0, 0, 0, 0.025) 0,
@@ -171,7 +171,7 @@ body::-webkit-scrollbar {
 }
 
 .header__submit-job::before {
-  content: "";
+  content: '';
   display: inline-block;
   height: 13px;
   width: 2px;
@@ -206,7 +206,7 @@ body::-webkit-scrollbar {
 }
 
 .bookmarks-btn::before {
-  content: "";
+  content: '';
   height: 15px;
   width: 2px;
   display: block;
@@ -506,7 +506,9 @@ body::-webkit-scrollbar {
   color: rgba(0, 0, 0, 0.9);
   caret-color: rgba(0, 0, 0, 0.5);
   background-color: rgba(255, 255, 255, 0.9);
-  transition: all 0.2s, box-shadow 0.1s;
+  transition:
+    all 0.2s,
+    box-shadow 0.1s;
 }
 
 .search input::selection {
@@ -632,7 +634,9 @@ body::-webkit-scrollbar {
   color: #747c82;
   background-color: #eceff2;
   cursor: pointer;
-  transition: all 0.2s, visibility 0s;
+  transition:
+    all 0.2s,
+    visibility 0s;
   gap: 2px;
   display: flex;
   align-items: center;
@@ -779,7 +783,7 @@ body::-webkit-scrollbar {
 }
 
 .job-info::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 174px;
@@ -950,7 +954,7 @@ body::-webkit-scrollbar {
 }
 
 .reviews__item::before {
-  content: "“";
+  content: '“';
   position: absolute;
   font-size: 50px;
   top: -15px;
