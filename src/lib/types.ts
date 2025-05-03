@@ -23,7 +23,7 @@ export type JobItemDetails = JobItem & {
   companyURL: string;
 };
 
-export type JobItemContentProps = {
-  isLoading?: boolean;
-  jobItemDetails: JobItemDetails | null;
+export type JobItemApiResponse = {
+  public: boolean;
+  jobItem: JobItemDetails;
 };
