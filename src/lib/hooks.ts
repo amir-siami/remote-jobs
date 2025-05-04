@@ -1,47 +1,66 @@
 import { useEffect, useState } from 'react';
-import { JobItem, JobItemApiResponse } from './types.ts';
+import { JobItemApiResponse, JobsApiResponse } from './types.ts';
 import { BASE_API_URL } from './constants.ts';
 import { useQuery } from '@tanstack/react-query';
 
+export type ApiError = {
+  message: string;
+};
+
 async function fetchJobItem(id: number): Promise<JobItemApiResponse> {
   const res = await fetch(`${BASE_API_URL}/${id}`);
+  if (!res.ok) {
+    const error: ApiError = await res.json();
+    throw new Error(error.message);
+  }
+  return await res.json();
+}
+
+async function fetchJobData(searchTerm: string): Promise<JobsApiResponse> {
+  const res = await fetch(`${BASE_API_URL}?search=${searchTerm}`);
+  if (!res.ok) {
+    const error: ApiError = await res.json();
+    throw new Error(error.message);
+  }
   return await res.json();
 }
 
 export function useFetchData(searchTerm: string) {
-  const [data, setData] = useState<JobItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const jobItemsLength = data?.length || 0;
-  const slicedData = data.slice(0, 7);
-
-  useEffect(() => {
-    if (!searchTerm) return;
-    setIsLoading(true);
-
-    const fetchData = async () => {
-      const res = await fetch(`${BASE_API_URL}?search=${searchTerm}`);
-      const data = await res.json();
-      setIsLoading(false);
-      setData(data.jobItems);
-    };
-    fetchData();
-  }, [searchTerm]);
-
-  return { slicedData, isLoading, jobItemsLength } as const;
+  const { data, isInitialLoading, error, isError } = useQuery(
+    ['jobs', searchTerm],
+    () => fetchJobData(searchTerm),
+    {
+      staleTime: 5000,
+      refetchOnWindowFocus: false,
+      retry: false,
+      enabled: Boolean(searchTerm),
+    }
+  );
+  return {
+    jobItems: data?.jobItems,
+    isLoading: isInitialLoading,
+    error,
+    isError,
+  } as const;
 }
 
 export function useFetchJobItem(id: number | null) {
-  const { data, isInitialLoading } = useQuery(
+  const { data, isInitialLoading, error, isError } = useQuery(
     ['job-item', id],
     () => (id ? fetchJobItem(id) : null),
     {
       staleTime: 1000 * 60 * 60,
       refetchOnWindowFocus: false,
+      retry: false,
       enabled: Boolean(id),
     }
   );
-  return [data?.jobItem, isInitialLoading] as const;
+  return {
+    jobItem: data?.jobItem,
+    isLoading: isInitialLoading,
+    error,
+    isError,
+  } as const;
 }
 
 export function useHashChange() {
@@ -59,7 +78,6 @@ export function useHashChange() {
     window.addEventListener('hashchange', handleHashChange);
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
-      console.log('listener removed');
     };
   }, []);
   return hashId;
