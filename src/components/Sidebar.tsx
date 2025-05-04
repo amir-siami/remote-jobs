@@ -7,14 +7,13 @@ import { JobItem } from '../lib/types.ts';
 type SidebarProps = {
   data: JobItem[];
   isLoading: boolean;
-  jobItemsLength: number;
+  jobItemsCount: number;
 };
-
-export function Sidebar({ data, isLoading, jobItemsLength }: SidebarProps) {
+export function Sidebar({ data, isLoading, jobItemsCount }: SidebarProps) {
   return (
     <div className="sidebar">
       <div className="sidebar__top">
-        <ResultsCount totalNumberOfResults={jobItemsLength} />
+        <ResultsCount totalNumberOfResults={jobItemsCount} />
         <SortingControls />
       </div>
       <JobList jobs={data} isLoading={isLoading} />

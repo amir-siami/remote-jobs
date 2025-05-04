@@ -4,14 +4,21 @@ import { Container } from './Container.tsx';
 import { Footer } from './Footer.tsx';
 import { useState } from 'react';
 import { useDebounce, useFetchData } from '../lib/hooks.ts';
-import { Sidebar } from './Sidebar.tsx';
 import { JobItemContent } from './JobItemContent.tsx';
+import { Sidebar } from './Sidebar.tsx';
+import toast from 'react-hot-toast';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-  const { slicedData, isLoading, jobItemsLength } =
-    useFetchData(debouncedSearchTerm);
+  const { jobItems, isLoading, error } = useFetchData(debouncedSearchTerm);
+
+  const jobItemsCount = jobItems?.length || 0;
+  const slicedData = jobItems?.slice(0, 7) || [];
+
+  if (error && error instanceof Error) {
+    toast.error(`Error: ${error.message}`);
+  }
 
   return (
     <>
@@ -21,7 +28,7 @@ function App() {
         <Sidebar
           data={slicedData}
           isLoading={isLoading}
-          jobItemsLength={jobItemsLength}
+          jobItemsCount={jobItemsCount}
         />
         <JobItemContent />
       </Container>

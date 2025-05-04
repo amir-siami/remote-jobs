@@ -1,17 +1,23 @@
 import { BookmarkIcon } from './BookmarkIcon';
 import { Spinner } from './Spinner.tsx';
-import { useFetchJobItem, useHashChange } from '../lib/hooks.ts';
+import { ApiError, useFetchJobItem, useHashChange } from '../lib/hooks.ts';
+import toast from 'react-hot-toast';
 
 export function JobItemContent() {
   const hashId = useHashChange();
 
-  const [jobItems, isLoading] = useFetchJobItem(hashId);
+  const { jobItem, isLoading, isError, error } = useFetchJobItem(hashId);
 
   if (isLoading) {
     return <EmptyJobContentLoading />;
   }
 
-  if (!jobItems) return <EmptyJobContent />;
+  if (!jobItem) return <EmptyJobContent />;
+
+  if (isError) {
+    const apiError = error as ApiError;
+    toast.error(`Error: ${apiError.message}`);
+  }
 
   const {
     company,
@@ -26,7 +32,7 @@ export function JobItemContent() {
     location,
     title,
     description,
-  } = jobItems;
+  } = jobItem;
   return (
     <section className="job-details">
       <div>
