@@ -111,28 +111,29 @@ export function useBookmarkContext() {
   return context;
 }
 
-export function useLocalStorage(
-  key: string
-): [number[], Dispatch<SetStateAction<number[]>>] {
-  const [storedValueIds, setStoredValueIds] = useState<number[]>(() => {
-    const storedValues = localStorage.getItem(key);
-    if (storedValues) {
-      try {
-        const parsed = JSON.parse(storedValues);
-        if (
-          Array.isArray(parsed) &&
-          parsed.every((id) => typeof id === 'number')
-        ) {
-          return parsed;
-        }
-      } catch (error) {
-        console.error('Error parsing bookmarks from localStorage:', error);
+export function useLocalStorage<T>(
+  key: string,
+  initialValue: T
+): [T, Dispatch<SetStateAction<T>>] {
+  const [storedValueIds, setStoredValueIds] = useState<T>(() => {
+    try {
+      const storedValues = localStorage.getItem(key);
+      if (storedValues !== null) {
+        return JSON.parse(storedValues);
       }
+    } catch (error) {
+      console.error(`Error parsing localStorage key "${key}":`, error);
     }
-    return [];
+    return initialValue;
   });
+
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(storedValueIds));
-  }, [storedValueIds, key]);
+    try {
+      localStorage.setItem(key, JSON.stringify(storedValueIds));
+    } catch (error) {
+      console.error(`Error parsing localStorage key "${key}":`, error);
+    }
+  }, [key, storedValueIds]);
+
   return [storedValueIds, setStoredValueIds];
 }
