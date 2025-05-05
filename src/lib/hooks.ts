@@ -1,7 +1,14 @@
-import { useEffect, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { JobItemApiResponse, JobsApiResponse } from './types.ts';
 import { BASE_API_URL } from './constants.ts';
 import { useQuery } from '@tanstack/react-query';
+import { BookmarkContext } from '../context/bookmark-context-provider.tsx';
 
 export type ApiError = {
   message: string;
@@ -92,4 +99,40 @@ export function useDebounce<T>(value: T, delay = 5000) {
     return () => clearTimeout(timerId);
   }, [value, delay]);
   return debounce;
+}
+
+export function useBookmarkContext() {
+  const context = useContext(BookmarkContext);
+  if (!context) {
+    throw new Error(
+      'useBookmarkContext must be used within a BookmarkContextProvider'
+    );
+  }
+  return context;
+}
+
+export function useLocalStorage(
+  key: string
+): [number[], Dispatch<SetStateAction<number[]>>] {
+  const [storedValueIds, setStoredValueIds] = useState<number[]>(() => {
+    const storedValues = localStorage.getItem(key);
+    if (storedValues) {
+      try {
+        const parsed = JSON.parse(storedValues);
+        if (
+          Array.isArray(parsed) &&
+          parsed.every((id) => typeof id === 'number')
+        ) {
+          return parsed;
+        }
+      } catch (error) {
+        console.error('Error parsing bookmarks from localStorage:', error);
+      }
+    }
+    return [];
+  });
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(storedValueIds));
+  }, [storedValueIds, key]);
+  return [storedValueIds, setStoredValueIds];
 }
