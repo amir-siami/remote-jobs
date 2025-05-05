@@ -33,3 +33,13 @@ export type JobsApiResponse = {
   sorted: boolean;
   jobItems: JobItem[];
 };
+
+export type SortBy = 'relevant' | 'recent';
+
+export type PageDirection = 'previous' | 'next';
+
+export type SortingButtonProps = {
+  onClick: () => void;
+  isActive: boolean;
+  text: string;
+};
