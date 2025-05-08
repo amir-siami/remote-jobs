@@ -10,6 +10,7 @@ export type JobItem = {
 export type JobListProps = {
   jobs: JobItem[];
   isLoading: boolean;
+  classNames: string;
 };
 
 export type JobItemDetails = JobItem & {
@@ -32,6 +33,11 @@ export type JobsApiResponse = {
   public: boolean;
   sorted: boolean;
   jobItems: JobItem[];
+};
+
+export type ApiResponse = {
+  public: boolean;
+  jobItem: JobItemDetails;
 };
 
 export type SortBy = 'relevant' | 'recent';
