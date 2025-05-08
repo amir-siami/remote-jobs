@@ -1021,6 +1021,12 @@ body::-webkit-scrollbar {
   border-left: 5px solid #ccd1d3;
 }
 
+.spinner.tiny {
+  width: 45px;
+  height: 45px;
+  margin-top: 18px;
+}
+
 .spinner--search {
 }
 

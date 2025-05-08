@@ -1,3 +1,3 @@
-export function Spinner() {
-  return <div className="spinner"></div>;
+export function Spinner({ classNames }: { classNames?: string }) {
+  return <div className={`spinner ${classNames}`}></div>;
 }

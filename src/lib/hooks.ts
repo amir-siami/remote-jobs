@@ -5,9 +5,14 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { JobItemApiResponse, JobsApiResponse } from './types.ts';
+import {
+  ApiResponse,
+  JobItemApiResponse,
+  JobItemDetails,
+  JobsApiResponse,
+} from './types.ts';
 import { BASE_API_URL } from './constants.ts';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import { BookmarkContext } from '../context/bookmark-context-provider.tsx';
 
 export type ApiError = {
@@ -25,6 +30,15 @@ async function fetchJobItem(id: number): Promise<JobItemApiResponse> {
 
 async function fetchJobData(searchTerm: string): Promise<JobsApiResponse> {
   const res = await fetch(`${BASE_API_URL}?search=${searchTerm}`);
+  if (!res.ok) {
+    const error: ApiError = await res.json();
+    throw new Error(error.message);
+  }
+  return await res.json();
+}
+
+async function fetchData(id: number): Promise<ApiResponse> {
+  const res = await fetch(`${BASE_API_URL}/${id}`);
   if (!res.ok) {
     const error: ApiError = await res.json();
     throw new Error(error.message);
@@ -68,6 +82,27 @@ export function useFetchJobItem(id: number | null) {
     error,
     isError,
   } as const;
+}
+
+export function useJobItems(ids: number[]) {
+  const results = useQueries({
+    queries: ids.map((id) => ({
+      queryKey: ['job-item', id],
+      queryFn: () => fetchData(id),
+      staleTime: 1000 * 60 * 60,
+      refetchOnWindowFocus: false,
+      retry: false,
+      enabled: Boolean(id),
+    })),
+  });
+  const data = results
+    .map((result) => result.data?.jobItem)
+    .filter((item) => Boolean(item)) as JobItemDetails[];
+  const isLoading = results.some((result) => result.isLoading);
+  const isError = results.some((result) => result.isError);
+  const error = results.find((result) => result.isError)?.error;
+
+  return [data, isLoading, isError, error] as const;
 }
 
 export function useHashChange() {

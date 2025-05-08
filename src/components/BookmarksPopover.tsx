@@ -1,3 +1,16 @@
+import { useBookmarkContext } from '../lib/hooks.ts';
+import { JobList } from './JobList.tsx';
+
 export function BookmarksPopover() {
-  return <div className="bookmarks-popover"></div>;
+  const { bookmarkedJobItems, isLoading } = useBookmarkContext();
+
+  return (
+    <div className="bookmarks-popover">
+      <JobList
+        jobs={bookmarkedJobItems}
+        isLoading={isLoading}
+        classNames="tiny"
+      />
+    </div>
+  );
 }
