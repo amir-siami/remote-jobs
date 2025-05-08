@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 
 export function JobItemContent() {
   const hashId = useHashChange();
+  const fallbackImg = '/banner.jpeg';
 
   const { jobItem, isLoading, isError, error } = useFetchJobItem(hashId);
 
@@ -36,7 +37,7 @@ export function JobItemContent() {
   return (
     <section className="job-details">
       <div>
-        <img src={coverImgURL} alt="#" />
+        <img src={coverImgURL ? fallbackImg : coverImgURL} alt="#" />
         <a
           className="apply-btn"
           href={companyURL}
