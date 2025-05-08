@@ -1,11 +1,12 @@
 import { useBookmarkContext } from '../lib/hooks.ts';
 import { JobList } from './JobList.tsx';
+import { forwardRef } from 'react';
 
-export function BookmarksPopover() {
+export const BookmarksPopover = forwardRef<HTMLDivElement>((_, ref) => {
   const { bookmarkedJobItems, isLoading } = useBookmarkContext();
 
   return (
-    <div className="bookmarks-popover">
+    <div ref={ref} className="bookmarks-popover">
       <JobList
         jobs={bookmarkedJobItems}
         isLoading={isLoading}
@@ -13,4 +14,4 @@ export function BookmarksPopover() {
       />
     </div>
   );
-}
+});

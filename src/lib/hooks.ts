@@ -1,4 +1,4 @@
-import {
+import React, {
   Dispatch,
   SetStateAction,
   useContext,
@@ -172,3 +172,21 @@ export function useLocalStorage<T>(
 
   return [storedValueIds, setStoredValueIds];
 }
+
+export const useClickOutside = (
+  refs: React.RefObject<HTMLElement>[],
+  handler: () => void
+) => {
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (refs.every((ref) => !ref.current?.contains(e.target as Node))) {
+        handler();
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [refs, handler]);
+};
