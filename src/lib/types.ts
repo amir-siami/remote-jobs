@@ -10,7 +10,7 @@ export type JobItem = {
 export type JobListProps = {
   jobs: JobItem[];
   isLoading: boolean;
-  classNames: string;
+  classNames?: string;
 };
 
 export type JobItemDetails = JobItem & {
