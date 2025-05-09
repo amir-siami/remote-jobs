@@ -2,40 +2,18 @@ import { ResultsCount } from './ResultsCount.tsx';
 import { SortingControls } from './SortingControls.tsx';
 import { JobList } from './JobList.tsx';
 import { PaginationControls } from './PaginationControls.tsx';
-import { JobItem, PageDirection, SortBy } from '../lib/types.ts';
+import { useJobItemsContext } from '../lib/hooks.ts';
 
-type SidebarProps = {
-  data: JobItem[];
-  isLoading: boolean;
-  jobItemsCount: number;
-  handlePageChange: (direction: PageDirection) => void;
-  currentPage: number;
-  pageSize: number;
-  onSortByChange: (text: SortBy) => void;
-  sortBy: SortBy;
-};
-export function Sidebar({
-  data,
-  isLoading,
-  jobItemsCount,
-  handlePageChange,
-  currentPage,
-  pageSize,
-  onSortByChange,
-  sortBy,
-}: SidebarProps) {
+export function Sidebar() {
+  const { slicedData, isLoading } = useJobItemsContext();
   return (
     <div className="sidebar">
       <div className="sidebar__top">
-        <ResultsCount totalNumberOfResults={jobItemsCount} />
-        <SortingControls onClick={onSortByChange} sortBy={sortBy} />
+        <ResultsCount />
+        <SortingControls />
       </div>
-      <JobList jobs={data} isLoading={isLoading} />
-      <PaginationControls
-        onPageChange={handlePageChange}
-        currentPage={currentPage}
-        pageSize={pageSize}
-      />
+      <JobList jobs={slicedData} isLoading={isLoading} />
+      <PaginationControls />
     </div>
   );
 }

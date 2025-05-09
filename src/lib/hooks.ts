@@ -14,6 +14,9 @@ import {
 import { BASE_API_URL } from './constants.ts';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import { BookmarkContext } from '../context/bookmark-context-provider.tsx';
+import { ActiveIdContext } from '../context/active-id-context-provider.tsx';
+import { SearchTextContext } from '../context/search-text-context-provider.tsx';
+import { JobItemsContext } from '../context/job-items-context-provider.tsx';
 
 export type ApiError = {
   message: string;
@@ -141,6 +144,36 @@ export function useBookmarkContext() {
   if (!context) {
     throw new Error(
       'useBookmarkContext must be used within a BookmarkContextProvider'
+    );
+  }
+  return context;
+}
+
+export function useActiveIdContext() {
+  const context = useContext(ActiveIdContext);
+  if (!context) {
+    throw new Error(
+      'useActiveIdContext must be used within a ActiveIdProvider'
+    );
+  }
+  return context;
+}
+
+export function useSearchContext() {
+  const context = useContext(SearchTextContext);
+  if (!context) {
+    throw new Error(
+      'useSearchContext must be used within a SearchContextProvider'
+    );
+  }
+  return context;
+}
+
+export function useJobItemsContext() {
+  const context = useContext(JobItemsContext);
+  if (!context) {
+    throw new Error(
+      'useSearchContext must be used within a SearchContextProvider'
     );
   }
   return context;

@@ -1,14 +1,14 @@
 import { BookmarkIcon } from './BookmarkIcon';
 import { JobItem } from '../lib/types.ts';
-import { useHashChange } from '../lib/hooks.ts';
+import { useActiveIdContext } from '../lib/hooks.ts';
 
 export function JobListItem({ job }: { job: JobItem }) {
   const { id, title, badgeLetters, company, daysAgo } = job;
 
-  const hashId = useHashChange();
+  const { activeId } = useActiveIdContext();
 
   return (
-    <li className={`job-item ${hashId === job.id ? 'job-item--active' : ''}`}>
+    <li className={`job-item ${activeId === job.id ? 'job-item--active' : ''}`}>
       <a href={`#${id}`} className="job-item__link">
         <div className="job-item__badge">{badgeLetters}</div>
 

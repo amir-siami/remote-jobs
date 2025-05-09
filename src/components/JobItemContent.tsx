@@ -1,13 +1,13 @@
 import { BookmarkIcon } from './BookmarkIcon';
 import { Spinner } from './Spinner.tsx';
-import { ApiError, useFetchJobItem, useHashChange } from '../lib/hooks.ts';
+import { ApiError, useActiveIdContext, useFetchJobItem } from '../lib/hooks.ts';
 import toast from 'react-hot-toast';
 
 export function JobItemContent() {
-  const hashId = useHashChange();
+  const { activeId } = useActiveIdContext();
   const fallbackImg = '/banner.jpeg';
 
-  const { jobItem, isLoading, isError, error } = useFetchJobItem(hashId);
+  const { jobItem, isLoading, isError, error } = useFetchJobItem(activeId);
 
   if (isLoading) {
     return <EmptyJobContentLoading />;
