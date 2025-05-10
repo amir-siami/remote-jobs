@@ -54,24 +54,18 @@ const JobItemsContextProvider = ({ children }: { children: ReactNode }) => {
 
   const pages = Math.ceil(jobItemsCount / PAGE_SIZE);
 
-  const handlePageChange = useCallback(
-    () => (direction: PageDirection) => {
-      if (direction === 'next') {
-        setCurrentPage((prev) => prev + 1);
-      } else if (direction === 'previous') {
-        setCurrentPage((prev) => prev - 1);
-      }
-    },
-    []
-  );
+  const handlePageChange = useCallback((direction: PageDirection) => {
+    if (direction === 'next') {
+      setCurrentPage((prev) => prev + 1);
+    } else if (direction === 'previous') {
+      setCurrentPage((prev) => prev - 1);
+    }
+  }, []);
 
-  const handleSortByChange = useCallback(
-    () => (sortText: SortBy) => {
-      setCurrentPage(1);
-      setSortBy(sortText);
-    },
-    []
-  );
+  const handleSortByChange = useCallback((sortText: SortBy) => {
+    setCurrentPage(1);
+    setSortBy(sortText);
+  }, []);
 
   if (error && error instanceof Error) {
     toast.error(`Error: ${error.message}`);
